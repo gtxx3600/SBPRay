@@ -28,7 +28,7 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
   }
   Intersect inst = Intersect();
   scene.GetIntersect(ray, &inst);
-  Material * m = &(inst.geometry_ptr->material);
+  const Material * m = &(inst.geometry_ptr->material);
   if(inst.IsValid()) {
 
     //Process diffusion
