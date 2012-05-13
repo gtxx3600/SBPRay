@@ -7,6 +7,8 @@
 
 #include "objects/Object.h"
 
+const float Object::kThreshold = 0.00000001;
+
 Object::Object() {
 
 }

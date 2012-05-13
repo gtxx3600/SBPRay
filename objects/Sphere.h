@@ -11,11 +11,11 @@
 #include "objects/Object.h"
 
 class Vec;
-
+class Material;
 class Sphere: public Object {
 public:
   Sphere();
-  Sphere(const Vec &p, float radius);
+  Sphere(const Vec &p, float radius, Material);
   virtual ~Sphere();
   void GetIntersect(const Ray &r, Intersect *out_ptr) const;
 

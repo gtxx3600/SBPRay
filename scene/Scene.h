@@ -14,11 +14,12 @@ using namespace std;
 class Object;
 class Ray;
 class Intersect;
+class Material;
 class Scene {
 public:
   Scene();
   ~Scene();
-  void CreateSphere(const Vec &p, float r);
+  void CreateSphere(const Vec &p, float r, Material m);
   void GetIntersect(const Ray &r, Intersect *out_ptr) const;
 
 private:
