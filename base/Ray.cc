@@ -4,11 +4,19 @@
  *  Created on: 2012-5-13
  *      Author: gtxx3600
  */
+#include "base/Vec.h"
+#include "base/Ray.h"
 
-#include "Ray.h"
 
-Ray::Ray() {
-  // TODO Auto-generated constructor stub
-
+Ray::Ray(Vec p, Vec d) : position(p), direction(d)
+{
 }
+
+
+Vec Ray::getPoint(float length)
+{
+  return position.Add(direction.Normalize().Multiply(length));
+}
+
+
 

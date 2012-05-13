@@ -5,7 +5,7 @@
  *      Author: gtxx3600
  */
 #include <math.h>
-#include "Vec.h"
+#include "base/Vec.h"
 
 const Vec Vec::kZero = Vec(0.0, 0.0, 0.0);
 

@@ -8,9 +8,15 @@
 #ifndef RAY_H_
 #define RAY_H_
 
+class Vec;
+
 class Ray {
 public:
-  Ray();
+  Vec position, direction;
+
+  Ray(Vec p, Vec d);
+  Vec getPoint(float length);
+
 };
 
 #endif /* RAY_H_ */
