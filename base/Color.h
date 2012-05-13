@@ -20,7 +20,7 @@ public:
   Color();
   Color(float r, float g, float b);
   Color Multiply(float a);
-  Color Modulate(const Color &c)
+  Color Modulate(const Color &c);
   Color Add(const Color &c);
   Color Sub(const Color &c);
 
