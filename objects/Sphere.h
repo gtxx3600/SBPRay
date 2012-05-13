@@ -14,12 +14,12 @@
 class Material;
 class Sphere: public Object {
 public:
-  Sphere(const Vec &p, float radius, Material m);
+  Sphere(const Vec &p, double radius, Material m);
   virtual ~Sphere();
   void GetIntersect(const Ray &r, Intersect *out_ptr) const;
 
   Vec position;
-  float radius;
+  double radius;
 };
 
 #endif /* SPHERE_H_ */

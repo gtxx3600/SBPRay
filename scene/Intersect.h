@@ -14,14 +14,14 @@
 class Intersect {
 public:
   Intersect();
-  Intersect(const Object *_geometry_ptr, Vec _position, Vec _normal, float _distance);
+  Intersect(const Object *_geometry_ptr, Vec _position, Vec _normal, double _distance);
   Intersect(const Intersect &intersect);
   bool IsValid() const;
 
   const Object *geometry_ptr;
   Vec position;
   Vec normal;
-  float distance;
+  double distance;
 };
 
 #endif /* INTERSECT_H_ */

@@ -11,7 +11,7 @@
 #include "base/Vec.h"
 #include "base/Ray.h"
 
-Camera::Camera(const Vec &p, const Vec &u, const Vec &f, float d, float v)
+Camera::Camera(const Vec &p, const Vec &u, const Vec &f, double d, double v)
     : position(p), upward(u), forward(f), distance(d){
   rightward = forward.XProduct(upward).Normalize();
   upward = upward.Normalize();
@@ -19,9 +19,9 @@ Camera::Camera(const Vec &p, const Vec &u, const Vec &f, float d, float v)
   fov_scale = tan(v * 0.5 * M_PI / 180) * 2;
 }
 
-Camera::Camera(float px, float py, float pz,
-    float ux, float uy, float uz,
-    float fx, float fy, float fz, float d, float v)
+Camera::Camera(double px, double py, double pz,
+    double ux, double uy, double uz,
+    double fx, double fy, double fz, double d, double v)
     : position(px, py, pz), upward(ux, uy, uz), forward(fx, fy, fz),
       distance(d){
   rightward = forward.XProduct(upward).Normalize();
@@ -30,7 +30,7 @@ Camera::Camera(float px, float py, float pz,
   fov_scale = tan(v * 0.5 * M_PI / 180) * 2;
 }
 
-Ray Camera::GenerateRay(float x, float y)
+Ray Camera::GenerateRay(double x, double y)
 {
   Vec r = rightward.Multiply((x - 0.5) * fov_scale);
   Vec u = upward.Multiply((y - 0.5) * fov_scale);

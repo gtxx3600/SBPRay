@@ -13,19 +13,19 @@ public:
   static const Vec kZero;
 
   Vec();
-  Vec(float a, float b, float c);
+  Vec(double a, double b, double c);
   Vec(const Vec &v);
   Vec Normalize() const;
   Vec Negate() const;
   Vec Add(const Vec &v) const;
   Vec Sub(const Vec &v) const;
-  Vec Multiply(float val) const;
+  Vec Multiply(double val) const;
   Vec XProduct(const Vec &v) const;
-  float Length() const;
-  float SqrLength() const;
-  float DotProduct(const Vec &v) const;
+  double Length() const;
+  double SqrLength() const;
+  double DotProduct(const Vec &v) const;
 
-  float x,y,z;
+  double x,y,z;
 };
 
 #endif /* VEC_H_ */

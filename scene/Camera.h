@@ -13,18 +13,18 @@
 class Ray;
 class Camera {
 public:
-  Camera(const Vec &p, const Vec &u, const Vec &f, float d, float v);
-  Camera(float px, float py, float pz,
-      float ux, float uy, float uz,
-      float fx, float fy, float fz, float d, float v);
-  Ray GenerateRay(float x, float y);
+  Camera(const Vec &p, const Vec &u, const Vec &f, double d, double v);
+  Camera(double px, double py, double pz,
+      double ux, double uy, double uz,
+      double fx, double fy, double fz, double d, double v);
+  Ray GenerateRay(double x, double y);
 
   Vec position;
   Vec upward;
   Vec forward;
   Vec rightward;
-  float distance;
-  float fov_scale;
+  double distance;
+  double fov_scale;
 };
 
 #endif /* CAMERA_H_ */

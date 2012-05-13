@@ -20,7 +20,7 @@
 const int PathTracingEngine::kMaxDepth = 6;
 #include <iostream>
 Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
-                                     int depth, float diffuse_accumulation)
+                                     int depth, double diffuse_accumulation)
 {
   Color ret = Color::kBlack;
   if(depth > kMaxDepth) {
@@ -40,7 +40,7 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
       Color diffuse_color = Color::kBlack;
       //Randomly generate lot of rays and trace these rays
       for (int i = 0; i < gen_ray_num; ++i) {
-        Ray new_ray = GenRandomRay(inst.position, inst.normal);
+        Ray new_ray = GenRandomRay(inst.position.Add(inst.normal.Multiply(0.00001)), inst.normal);
         Color new_color = PathTracing(scene, new_ray, depth + 1,
             diffuse_accumulation + m->diffusion);
         diffuse_color = diffuse_color.Add(new_color.Multiply(
@@ -54,7 +54,7 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
     if(m->reflection > 0) {
       Vec reflect_direction = ray.direction.Add(inst.normal.Multiply(
           2 * ray.direction.Negate().DotProduct(inst.normal)));
-      Ray new_ray = Ray(inst.position, reflect_direction);
+      Ray new_ray = Ray(inst.position.Add(inst.normal.Multiply(0.00001)), reflect_direction);
       Color new_color = PathTracing(scene, new_ray, depth + 1,
                   diffuse_accumulation + m->diffusion);
       ret = ret.Add(new_color.Multiply(m->reflection));
@@ -67,22 +67,23 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
   return ret;
 }
 
-int PathTracingEngine::GenRayNumber(int depth, float diffuse_accumulation){
+int PathTracingEngine::GenRayNumber(int depth, double diffuse_accumulation){
   return (kMaxDepth - depth) * 2; // (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
 }
 /*
  * Generate rays uniformly distributed on an half sphere
  */
 Ray PathTracingEngine::GenRandomRay(const Vec &position, const Vec &normal){
+  return Ray(position, Vec(-1,-1,0).Normalize());
   int a = rand();
   int b = rand();
-  float theta = M_PI * (static_cast<float>(2 * a) / static_cast<float>(RAND_MAX));
-  float gamma = M_PI * (static_cast<float>(2 * b) / static_cast<float>(RAND_MAX));
+  double theta = M_PI * (static_cast<double>(2 * a) / static_cast<double>(RAND_MAX));
+  double gamma = M_PI * (static_cast<double>(2 * b) / static_cast<double>(RAND_MAX));
 
-  float z = sin(gamma);
-  float len = abs(cos(gamma));
-  float x = len * cos(theta);
-  float y = len * sin(theta);
+  double z = sin(gamma);
+  double len = abs(cos(gamma));
+  double x = len * cos(theta);
+  double y = len * sin(theta);
   Vec direction = Vec(x, y, z);
   if(direction.DotProduct(normal) > 0) {
     return Ray(position, direction.Normalize());

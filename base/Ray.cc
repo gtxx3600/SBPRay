@@ -19,7 +19,7 @@ Ray::Ray(const Ray &r)
 }
 
 
-Vec Ray::GetPoint(float length) const {
+Vec Ray::GetPoint(double length) const {
   return position.Add(direction.Normalize().Multiply(length));
 }
 

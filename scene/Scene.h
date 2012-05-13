@@ -20,7 +20,7 @@ class Scene {
 public:
   Scene();
   ~Scene();
-  void CreateSphere(const Vec &p, float r, Material m);
+  void CreateSphere(const Vec &p, double r, Material m);
   void GetIntersect(const Ray &r, Intersect *out_ptr) const;
 
 private:

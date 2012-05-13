@@ -20,7 +20,7 @@ const int RayTracingEngine::kMaxDepth = 6;
 #include <iostream>
 Vec light_dir = Vec(1,1,-1).Normalize();
 Color light = Color(0.5,0.5,0.5);
-Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int depth, float diffuse_accumulation)
+Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int depth, double diffuse_accumulation)
 {
   Color ret = Color::kBlack;
   if(depth > kMaxDepth) {
@@ -35,7 +35,7 @@ Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int dep
     //Process diffusion
     if(m->diffusion > 0.1) {
       Color diffuse_color = Color::kBlack;
-      float n_dot_l = inst.normal.DotProduct(light_dir);
+      double n_dot_l = inst.normal.DotProduct(light_dir);
       if(n_dot_l < 0)
       {
         ret = ret.Add(light.Multiply(-n_dot_l).Modulate(m->color));

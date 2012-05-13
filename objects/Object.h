@@ -17,7 +17,7 @@ public:
   Object(Material m);
   virtual ~Object();
 
-  static const float kThreshold;
+  static const double kThreshold;
 
   virtual void GetIntersect(const Ray &r, Intersect *out_ptr) const = 0;
   Material material;
