@@ -8,7 +8,6 @@
 #include "scene/Scene.h"
 
 Scene::Scene() {
-  // TODO Auto-generated constructor stub
 
 }
 
@@ -18,7 +17,8 @@ void Scene::CreateSphere(const Vec &p, float r) {
 
 void Scene::GetIntersect(const Ray &r, Intersect *out_ptr) const {
   list<Object>::const_iterator itr;
+  Intersect intersect;
   for (itr = object_list.begin(); itr != object_list.end(); ++itr) {
-    itr->GetIntersect(r, out_ptr);
+    itr->GetIntersect(r, &intersect);
   }
 }
