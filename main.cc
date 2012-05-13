@@ -22,8 +22,8 @@ int main(int argc, char **argv) {
   Scene scene;
   Material source(0.0, 1.0, 0.0, Color::kWhite, Color::kRed);
   Material material(0.0, 1.0, 0.0, Color::kBlack, Color::kGreen);
-  scene.CreateSphere(Vec(0, 0, 0), 2, material);
-  scene.CreateSphere(Vec(0,3,0), 1, source);
+//  scene.CreateSphere(Vec(0, 0, 0), 2, material);
+  scene.CreateSphere(Vec(0,0,0), 3, source);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
   int size = 256;
