@@ -18,8 +18,10 @@ int main(int argc, char **argv) {
   float distance = 5.0;
   Camera camera(0.0,0.0,-distance, 0.0,1.0,0.0, 0.0,0.0,1.0, distance, 45);
   Scene scene;
-  Material material(0.0, 1.0, 0.0, Color::kGreen);
+  Material source(0.0, 1.0, 0.0, Color::kWhite, Color::kRed);
+  Material material(0.0, 1.0, 0.0, Color::kBlack, Color::kGreen);
   scene.CreateSphere(Vec(0, 0, 0), 2, material);
+  scene.CreateSphere(Vec(0,3,0), 1, source);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
   int size = 256;
