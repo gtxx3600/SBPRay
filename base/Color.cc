@@ -7,6 +7,12 @@
 
 #include "base/Color.h"
 
+const Color Color::kRed = Color(1.0, 0.0, 0.0);
+const Color Color::kGreen = Color(0.0, 1.0, 0.0);
+const Color Color::kBlue = Color(0.0, 0.0, 1.0);
+const Color Color::kWhite = Color(1.0, 1.0, 1.0);
+const Color Color::kBlack = Color(0.0, 0.0, 0.0);
+
 Color::Color()
     :red(0.0), green(0.0), blue(0.0) {
 }
@@ -19,10 +25,14 @@ Color Color::Multiply(float a) {
   return Color(red*a, green*a, blue*a);
 }
 
-Color Color::Add(Color &c) {
+Color Color::Modulate(const Color &c){
+  return Color(red * c.red, green * c.green, blue * c.blue);
+}
+
+Color Color::Add(const Color &c) {
   return Color(red + c.red, green + c.green, blue + c.blue);
 }
 
-Color Color::Sub(Color &c) {
+Color Color::Sub(const Color &c) {
   return Color(red - c.red, green - c.green, blue - c.blue);
 }
