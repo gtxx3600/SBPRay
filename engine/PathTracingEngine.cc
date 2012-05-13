@@ -16,6 +16,12 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
                                      int depth, float diffuse_accumulation)
 {
   Intersect inst = Intersect();
+  scene.GetIntersect(ray, &inst);
+  if(inst.IsValid()) {
+
+  } else {
+    return Color::kBlack;
+  }
   return Color::kBlack;
 }
 
