@@ -13,13 +13,16 @@ class Color;
 class Material {
 public:
   Material();
-  Material(float _diffusion, float _reflection, float _refraction, Color _emittance);
+  Material(Material & m);
+  Material(float _diffusion, float _reflection, float _refraction,
+           Color _emittance, Color _color);
   virtual ~Material();
 
   float diffusion;
   float reflection;
   float refraction;
   Color emittance;
+  Color color;
 
 };
 
