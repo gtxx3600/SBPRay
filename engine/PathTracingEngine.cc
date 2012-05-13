@@ -68,7 +68,7 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
 }
 
 int PathTracingEngine::GenRayNumber(int depth, float diffuse_accumulation){
-  return (kMaxDepth - depth) * 5; // (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
+  return (kMaxDepth - depth) * 2; // (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
 }
 /*
  * Generate rays uniformly distributed on an half sphere
