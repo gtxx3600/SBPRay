@@ -13,7 +13,7 @@ class Intersect {
 public:
   Intersect();
   Intersect(const Object *_geometry_ptr, Vec _position, Vec _normal, float _distance);
-  bool IsValid();
+  bool IsValid() const;
 
   Object *geometry_ptr;
   Vec position;
