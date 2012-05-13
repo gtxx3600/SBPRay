@@ -19,6 +19,13 @@ Intersect::Intersect(const Object * _geometry, Vec _position, Vec _normal, float
 {
 }
 
+Intersect::Intersect(const Intersect &intersect)
+    : geometry_ptr(intersect.geometry_ptr),
+      position(intersect.position),
+      normal(intersect.normal),
+      distance(intersect.distance) {
+}
+
 bool Intersect::IsValid() {
   return geometry_ptr != NULL;
 }
