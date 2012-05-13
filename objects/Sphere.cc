@@ -9,6 +9,7 @@
 
 #include <cstdlib>
 #include "base/Vec.h"
+#include "base/Ray.h"
 #include "scene/Intersect.h"
 
 Sphere::Sphere() : position(), radius(0.0) {
@@ -20,7 +21,7 @@ Sphere::Sphere(const Vec &p, float r)
 Sphere::~Sphere() {
 }
 
-void Sphere::GetIntersect(const Ray &r, Intersect *out) {
+void Sphere::GetIntersect(const Ray &r, Intersect *out) const {
   Vec v = position.Sub(r.position);
   float a = r.direction.SqrLength();
   float b = 2*v.DotProduct(r.direction);
@@ -29,6 +30,10 @@ void Sphere::GetIntersect(const Ray &r, Intersect *out) {
   out->geometry_ptr = NULL;
   if (delta >= 0) {
     float tmin = (-b - sqrt(delta)) / (2*a);
+    out->geometry_ptr = this;
+    out->distance  = tmin;
+    out->position = r.GetPoint(tmin);
+    out->normal = out->position.Sub(position);
     Intersect intersect; // TODO
   }
 }

@@ -19,10 +19,10 @@ public:
 
   Color();
   Color(float r, float g, float b);
-  Color Multiply(float a);
-  Color Modulate(const Color &c);
-  Color Add(const Color &c);
-  Color Sub(const Color &c);
+  Color Multiply(float a) const;
+  Color Modulate(const Color &c) const;
+  Color Add(const Color &c) const;
+  Color Sub(const Color &c) const;
 
   float red, green, blue;
 };

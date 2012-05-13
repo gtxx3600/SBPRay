@@ -14,7 +14,7 @@ public:
   Object();
   virtual ~Object();
 
-  virtual void GetIntersect(const Ray &r, Intersect *out_ptr) = 0;
+  virtual void GetIntersect(const Ray &r, Intersect *out_ptr) const = 0;
 };
 
 #endif /* OBJECT_H_ */

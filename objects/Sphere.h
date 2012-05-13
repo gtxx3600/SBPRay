@@ -17,7 +17,7 @@ public:
   Sphere();
   Sphere(const Vec &p, float radius);
   virtual ~Sphere();
-  void GetIntersect(const Ray &r, Intersect *out_ptr);
+  void GetIntersect(const Ray &r, Intersect *out_ptr) const;
 
   Vec position;
   float radius;
