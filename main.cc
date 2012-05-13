@@ -18,12 +18,12 @@ using namespace std;
 int main(int argc, char **argv) {
   cout << "start" << endl;
   float distance = 5.0;
-  Camera camera(0.0,0.0,-distance, 0.0,1.0,0.0, 0.0,0.0,1.0, distance, 45);
+  Camera camera(0.0,0.0,distance, 0.0,1.0,0.0, 0.0,0.0,-1.0, -distance, 45);
   Scene scene;
-  Material source(0.0, 1.0, 0.0, Color::kWhite, Color::kRed);
-  Material material(0.0, 1.0, 0.0, Color::kBlack, Color::kGreen);
+  Material source(1.0, 0.0, 0.0, Color::kWhite, Color::kRed);
+  Material material(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
   scene.CreateSphere(Vec(0, 0, 0), 0.5, source);
-  scene.CreateSphere(Vec(1,1,0), 0.5, material);
+  scene.CreateSphere(Vec(1,1,0), 6, material);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
   int size = 512;

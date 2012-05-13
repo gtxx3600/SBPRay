@@ -36,8 +36,3 @@ Ray Camera::GenerateRay(float x, float y)
   Vec u = upward.Multiply((y - 0.5) * fov_scale);
   return Ray(position, forward.Add(r).Add(u).Normalize());
 }
-
-
-
-
-
