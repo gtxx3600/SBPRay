@@ -14,7 +14,7 @@ Intersect::Intersect()
 
 }
 
-Intersect::Intersect(const Object * _geometry, Vec _position, Vec _normal, float _distance)
+Intersect::Intersect(const Object * _geometry, Vec _position, Vec _normal, double _distance)
     :geometry_ptr(_geometry), position(_position), normal(_normal), distance(_distance)
 {
 }

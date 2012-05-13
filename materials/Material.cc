@@ -17,8 +17,8 @@ Material::Material() {
   color = Color::kBlack;
 }
 
-Material::Material(float _diffusion, float _reflection,
-                   float _refraction, Color _emittance, Color _color)
+Material::Material(double _diffusion, double _reflection,
+                   double _refraction, Color _emittance, Color _color)
 :diffusion(_diffusion), reflection(_reflection),
  refraction(_refraction), emittance(_emittance), color(_color){
 

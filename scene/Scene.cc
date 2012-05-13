@@ -23,7 +23,7 @@ Scene::~Scene() {
   }
 }
 
-void Scene::CreateSphere(const Vec &p, float r, Material m) {
+void Scene::CreateSphere(const Vec &p, double r, Material m) {
   Object *o_ptr = new Sphere(p, r, m);
   object_list.push_back(o_ptr);
 }

@@ -17,11 +17,11 @@ Color::Color()
     :red(0.0), green(0.0), blue(0.0) {
 }
 
-Color::Color(float r, float g, float b)
+Color::Color(double r, double g, double b)
     :red(r), green(g), blue(b) {
 }
 
-Color Color::Multiply(float a) const {
+Color Color::Multiply(double a) const {
   return Color(red*a, green*a, blue*a);
 }
 

@@ -14,7 +14,7 @@ class Ray {
 public:
   Ray(Vec p, Vec d);
   Ray(const Ray &r);
-  Vec GetPoint(float length) const;
+  Vec GetPoint(double length) const;
 
   Vec position, direction;
 };

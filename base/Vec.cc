@@ -13,7 +13,7 @@ Vec::Vec()
     :x(0.0), y(0.0), z(0.0) {
 }
 
-Vec::Vec(float a, float b, float c)
+Vec::Vec(double a, double b, double c)
     :x(a),y(b),z(c) {
 }
 
@@ -22,7 +22,7 @@ Vec::Vec(const Vec &v)
 }
 
 Vec Vec::Normalize() const {
-  float len = this->Length();
+  double len = this->Length();
   if (len > 0.0) {
     return Vec(x/len, y/len, z/len);
   } else {
@@ -52,7 +52,7 @@ Vec Vec::Sub(const Vec & v) const
 
 
 
-Vec Vec::Multiply(float val) const
+Vec Vec::Multiply(double val) const
 {
   return Vec(x*val, y*val, z*val);
 }
@@ -66,21 +66,21 @@ Vec Vec::XProduct(const Vec & v) const
 
 
 
-float Vec::Length() const
+double Vec::Length() const
 {
   return sqrt(x*x + y*y + z*z);
 }
 
 
 
-float Vec::SqrLength() const
+double Vec::SqrLength() const
 {
   return x*x + y*y + z*z;
 }
 
 
 
-float Vec::DotProduct(const Vec & v) const
+double Vec::DotProduct(const Vec & v) const
 {
   return x*v.x + y*v.y + z*v.z;
 }
