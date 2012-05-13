@@ -8,11 +8,13 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
+class Intersect;
 class Object {
 public:
-  const static Object kNoObject;
-
   Object();
+  virtual ~Object();
+
+  virtual void GetIntersect(const Ray &r, Intersect *out_ptr) = 0;
 };
 
 #endif /* OBJECT_H_ */

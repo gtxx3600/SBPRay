@@ -11,11 +11,11 @@ class Vec;
 class Object;
 class Intersect {
 public:
-  const static Intersect  kNoHit;
+  Intersect();
+  Intersect(const Object *_geometry_ptr, Vec _position, Vec _normal, float _distance);
+  bool IsValid();
 
-  Intersect(const Object &_geometry, Vec _position, Vec _normal, float _distance);
-
-  Object &geometry;
+  Object *geometry_ptr;
   Vec position;
   Vec normal;
   float distance;

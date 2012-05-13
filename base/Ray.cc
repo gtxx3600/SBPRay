@@ -10,6 +10,7 @@
 
 Ray::Ray(Vec p, Vec d) : position(p), direction(d)
 {
+  direction = direction.Normalize();
 }
 
 

@@ -9,12 +9,16 @@
 #include <cstdlib>
 #include "objects/Object.h"
 
-const Intersect Intersect::kNoHit = Intersect(Object::kNoObject, Vec(), Vec(), 0.0);
+Intersect::Intersect()
+    : geometry_ptr(NULL) {
 
-Intersect::Intersect(const Object & _geometry, Vec _position, Vec _normal, float _distance)
-:geometry(_geometry), position(_position), normal(_normal), distance(_distance)
+}
+
+Intersect::Intersect(const Object * _geometry, Vec _position, Vec _normal, float _distance)
+    :geometry_ptr(_geometry), position(_position), normal(_normal), distance(_distance)
 {
 }
 
-
-
+bool Intersect::IsValid() {
+  return geometry_ptr != NULL;
+}
