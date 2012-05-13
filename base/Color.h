@@ -10,19 +10,11 @@
 
 class Color {
 public:
-
-  const static Color kRed;
-  const static Color kGreen;
-  const static Color kBlue;
-  const static Color kWhite;
-  const static Color kBlack;
-
   Color();
   Color(float r, float g, float b);
   Color Multiply(float a);
-  Color Modulate(const Color &c);
-  Color Add(const Color &c);
-  Color Sub(const Color &c);
+  Color Add(Color &c);
+  Color Sub(Color &c);
 
   float red, green, blue;
 };
