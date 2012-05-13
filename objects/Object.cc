@@ -7,7 +7,7 @@
 
 #include "objects/Object.h"
 
-const float Object::kThreshold = 0.00000001;
+const float Object::kThreshold = 0.00001;
 
 Object::Object(Material m)
     : material(m) {
