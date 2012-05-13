@@ -8,6 +8,7 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
+class Material;
 class Intersect;
 class Object {
 public:
@@ -15,6 +16,7 @@ public:
   virtual ~Object();
 
   virtual void GetIntersect(const Ray &r, Intersect *out_ptr) const = 0;
+  Material material;
 };
 
 #endif /* OBJECT_H_ */
