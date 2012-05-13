@@ -12,11 +12,10 @@ class Vec;
 
 class Ray {
 public:
-  Vec position, direction;
-
   Ray(Vec p, Vec d);
   Vec getPoint(float length);
 
+  Vec position, direction;
 };
 
 #endif /* RAY_H_ */

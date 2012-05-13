@@ -10,8 +10,8 @@
 
 class Vec {
 public:
-  float x,y,z;
   static const Vec kZero;
+
   Vec();
   Vec(float a, float b, float c);
   Vec Copy();
@@ -24,6 +24,8 @@ public:
   float Length();
   float SqrLength();
   float DotProduct(const Vec &v);
+
+  float x,y,z;
 };
 
 #endif /* VEC_H_ */
