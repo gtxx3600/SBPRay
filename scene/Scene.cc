@@ -8,13 +8,15 @@
 #include "scene/Scene.h"
 
 #include <cstdlib>
+#include "base/Color.h"
+#include "objects/Sphere.h"
 
 Scene::Scene() {
 
 }
 
-void Scene::CreateSphere(const Vec &p, float r) {
-  object_list.push_back(Sphere(p, r));
+void Scene::CreateSphere(const Vec &p, float r, Material m) {
+  object_list.push_back(Sphere(p, r, m));
 }
 
 void Scene::GetIntersect(const Ray &r, Intersect *out_ptr) const {
