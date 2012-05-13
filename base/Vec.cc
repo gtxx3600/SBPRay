@@ -9,30 +9,25 @@
 
 const Vec Vec::kZero = Vec(0.0, 0.0, 0.0);
 
-Vec::Vec() {
-  // TODO Auto-generated constructor stub
-  x = y = z = 0.0;
+Vec::Vec()
+    :x(0.0), y(0.0), z(0.0) {
 }
 
 Vec::Vec(float a, float b, float c)
-:x(a),y(b),z(c)
-{
+    :x(a),y(b),z(c) {
 }
 
-Vec Vec::Copy()
-{
-  return Vec(x,y,z);
+Vec::Vec(Vec &v)
+    :x(v.x), y(v.y), z(v.z) {
 }
-
-
 
 Vec Vec::Normalize()
 {
   float len = this->Length();
-  if (len > 0) {
+  if (len > 0.0) {
     return Vec(x/len, y/len, z/len);
   } else {
-    return Vec(0,0,0);
+    return Vec(0.0,0.0,0.0);
   }
 }
 

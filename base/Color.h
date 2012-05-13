@@ -11,6 +11,12 @@
 class Color {
 public:
   Color();
+  Color(float r, float g, float b);
+  Color Multiply(float a);
+  Color Add(Color &c);
+  Color Sub(Color &c);
+
+  float red, green, blue;
 };
 
 #endif /* COLOR_H_ */
