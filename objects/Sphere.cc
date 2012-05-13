@@ -18,7 +18,8 @@ Sphere::Sphere() : position(), radius(0.0) {
 Sphere::Sphere(const Vec &p, float r)
     : position(p), radius(r) {
 }
-
+Sphere::~Sphere() {
+}
 
 void Sphere::GetIntersect(const Ray &r, Intersect *out) const {
   Vec v = position.Sub(r.position);

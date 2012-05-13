@@ -6,9 +6,22 @@
  */
 
 #include "PathTracingEngine.h"
+#include "scene/Scene.h"
+#include "scene/Intersect.h"
+#include "base/Color.h"
+#include "base/Ray.h"
+#include "base/Vec.h"
 
-PathTracingEngine::PathTracingEngine() {
-  // TODO Auto-generated constructor stub
+Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
+                                     int depth, float diffuse_accumulation)
+{
+  Intersect inst = Intersect();
+  return Color::kBlack;
+}
 
+
+
+PathTracingEngine::PathTracingEngine()
+{
 }
 

@@ -8,8 +8,16 @@
 #ifndef PATHTRACINGENGINE_H_
 #define PATHTRACINGENGINE_H_
 
+class Color;
+class Scene;
+class Ray;
+
 class PathTracingEngine {
 public:
+  static Color PathTracing(const Scene & scene, const Ray & ray,
+                           int depth, float diffuse_accumulation);
+
+private:
   PathTracingEngine();
 };
 
