@@ -7,10 +7,7 @@
 
 #include "objects/Object.h"
 
-const Object Object::kNoObject = Object();
-
 Object::Object() {
-  // TODO Auto-generated constructor stub
 
 }
 

@@ -11,12 +11,10 @@
 class Intersect;
 class Object {
 public:
-  const static Object kNoObject;
-
   Object();
   virtual ~Object();
 
-  virtual Intersect intersect(const Ray &r);
+  virtual void GetIntersect(const Ray &r, Intersect *out_ptr) = 0;
 };
 
 #endif /* OBJECT_H_ */

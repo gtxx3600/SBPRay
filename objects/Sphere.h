@@ -8,7 +8,7 @@
 #ifndef SPHERE_H_
 #define SPHERE_H_
 
-#include "Object.h"
+#include "objects/Object.h"
 
 class Vec;
 
@@ -16,7 +16,7 @@ class Sphere: public Object {
 public:
   Sphere();
   Sphere(const Vec &p, float radius);
-  Intersect intersect(const Ray &r);
+  void GetIntersect(const Ray &r, Intersect *out_ptr);
 
   Vec position;
   float radius;
