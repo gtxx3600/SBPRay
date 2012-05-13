@@ -10,6 +10,8 @@
 
 class Object {
 public:
+  const static Object kNoObject;
+
   Object();
 };
 
