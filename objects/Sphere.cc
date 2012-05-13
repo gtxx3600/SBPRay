@@ -30,10 +30,11 @@ void Sphere::GetIntersect(const Ray &r, Intersect *out) const {
   out->geometry_ptr = NULL;
   if (delta >= 0) {
     float tmin = (-b - sqrt(delta)) / (2*a);
+    if (tmin < 0)
+      return;
     out->geometry_ptr = this;
     out->distance  = tmin;
     out->position = r.GetPoint(tmin);
     out->normal = out->position.Sub(position);
-    Intersect intersect; // TODO
   }
 }
