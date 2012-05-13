@@ -5,7 +5,9 @@
  *      Author: gtxx3600
  */
 
-#include "Camera.h"
+#include "scene/Camera.h"
+#include "base/Vec.h"
+
 
 Camera::Camera(const Vec &p, const Vec &u, const Vec &f, float d)
     : position(p), upward(u), forward(f), distance(d) {

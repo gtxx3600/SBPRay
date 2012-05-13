@@ -5,7 +5,7 @@
  *      Author: gtxx3600
  */
 
-#include "Object.h"
+#include "objects/Object.h"
 
 const Object Object::kNoObject = Object();
 

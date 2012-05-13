@@ -5,7 +5,7 @@
  *      Author: gtxx3600
  */
 
-#include "Material.h"
+#include "materials/Material.h"
 
 Material::Material() {
   // TODO Auto-generated constructor stub

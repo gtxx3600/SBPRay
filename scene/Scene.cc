@@ -5,7 +5,7 @@
  *      Author: gtxx3600
  */
 
-#include "Scene.h"
+#include "scene/Scene.h"
 
 Scene::Scene() {
   // TODO Auto-generated constructor stub

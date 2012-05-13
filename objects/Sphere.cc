@@ -5,7 +5,7 @@
  *      Author: skaby
  */
 
-#include "Sphere.h"
+#include "objects/Sphere.h"
 
 Sphere::Sphere() : position(), radius(0.0) {
 }

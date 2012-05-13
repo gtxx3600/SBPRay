@@ -5,7 +5,7 @@
  *      Author: gtxx3600
  */
 
-#include "Color.h"
+#include "base/Color.h"
 
 Color::Color()
     :red(0.0), green(0.0), blue(0.0) {
