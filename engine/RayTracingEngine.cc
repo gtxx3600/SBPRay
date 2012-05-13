@@ -33,19 +33,20 @@ Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int dep
     //Process emittance
 
     //Process diffusion
-
-    Color diffuse_color = Color::kBlack;
-    float n_dot_l = inst.normal.DotProduct(light_dir);
-    if(n_dot_l > 0)
-    {
-      ret = ret.Add(light.Multiply(n_dot_l));
-      std::cout<<"hit\n";
+    if(m->diffusion > 0.1) {
+      Color diffuse_color = Color::kBlack;
+      float n_dot_l = inst.normal.DotProduct(light_dir);
+      if(n_dot_l > 0)
+      {
+        ret = ret.Add(light.Multiply(n_dot_l).Modulate(m->color));
+        std::cout<<"hit\n";
+      }
     }
 
     //Process reflection, just generate the reflect ray
     if(m->reflection > 0.1) {
       Vec reflect_direction = ray.direction.Add(inst.normal.Multiply(
-          2 * ray.direction.Negate().DotProduct(inst.normal)));
+          2 * ray.direction.Negate().DotProduct(inst.normal))).Normalize();
       Ray new_ray = Ray(inst.position, reflect_direction);
       Color new_color = RayTracing(scene, new_ray, depth + 1,
                   diffuse_accumulation + m->diffusion);
