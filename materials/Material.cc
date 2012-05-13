@@ -33,11 +33,6 @@ Material::Material(Material & m)
   color = m.color;
 }
 
-Material::Material(float _diffusion, float _reflection, float _refraction,
-                   Color _emittance, Color _color)
-{
-}
-
 Material::~Material(){
 }
 

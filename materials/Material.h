@@ -8,7 +8,7 @@
 #ifndef MATERIAL_H_
 #define MATERIAL_H_
 
-class Color;
+#include "base/Color.h"
 
 class Material {
 public:

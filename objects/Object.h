@@ -8,11 +8,13 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-class Material;
+#include "materials/Material.h"
+
+class Ray;
 class Intersect;
 class Object {
 public:
-  Object();
+  Object(Material m);
   virtual ~Object();
 
   static const float kThreshold;

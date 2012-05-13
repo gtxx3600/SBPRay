@@ -8,15 +8,13 @@
 #include "objects/Sphere.h"
 
 #include <cstdlib>
+#include <cmath>
 #include "base/Vec.h"
 #include "base/Ray.h"
 #include "scene/Intersect.h"
 
-Sphere::Sphere() : position(), radius(0.0) {
-}
-
 Sphere::Sphere(const Vec &p, float r, Material m)
-    : position(p), radius(r), material(m) {
+    : Object(m), position(p), radius(r) {
 }
 
 Sphere::~Sphere() {
@@ -28,7 +26,7 @@ void Sphere::GetIntersect(const Ray &r, Intersect *out) const {
   Vec v = position.Sub(r.position);
   float slen_of_v = v.SqrLength();
   float sqr_radius = radius*radius;
-  if (v < sqr_radius) {
+  if (slen_of_v < sqr_radius) {
     is_in_sphere = true;
   } else if (v.DotProduct(r.direction) <= 0) { // Fixme
     return;

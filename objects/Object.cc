@@ -9,7 +9,8 @@
 
 const float Object::kThreshold = 0.00000001;
 
-Object::Object() {
+Object::Object(Material m)
+    : material(m) {
 
 }
 
