@@ -34,8 +34,8 @@ void Scene::GetIntersect(const Ray &r, Intersect *out_ptr) const {
   out_ptr->geometry_ptr = NULL;
   for (itr = object_list.begin(); itr != object_list.end(); ++itr) {
     (*itr)->GetIntersect(r, &intersect);
-    if (intersect.IsValid() && !out_ptr->IsValid() &&
-        intersect.distance < out_ptr->distance) {
+    if (intersect.IsValid() && (!out_ptr->IsValid() ||
+        intersect.distance < out_ptr->distance)) {
       *out_ptr = intersect;
     }
   }

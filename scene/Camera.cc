@@ -26,7 +26,7 @@ Camera::Camera(float px, float py, float pz,
       distance(d){
   rightward = forward.XProduct(upward).Normalize();
   upward = upward.Normalize();
-  forward = forward.Normalize().Multiply(distance);
+  forward = forward.Normalize();
   fov_scale = tan(v * 0.5 * M_PI / 180) * 2;
 }
 

@@ -26,14 +26,14 @@ void Sphere::GetIntersect(const Ray &r, Intersect *out) const {
   Vec v = position.Sub(r.position);
   float slen_of_v = v.SqrLength();
   float sqr_radius = radius*radius;
-  if (slen_of_v < sqr_radius) {
+  if (slen_of_v <= sqr_radius) {
     is_in_sphere = true;
   } else if (v.DotProduct(r.direction) <= 0) { // Fixme
     return;
   }
   float a = r.direction.SqrLength();
-  float b = 2*v.DotProduct(r.direction);
-  float c = a*(v.SqrLength() - radius*radius);
+  float b = -2*v.DotProduct(r.direction);
+  float c = a*(slen_of_v - sqr_radius);
   float delta = b*b - 4*a*c;
   if (delta >= 0) {
     float sqrt_delta = sqrt(delta);

@@ -18,7 +18,7 @@
 #include "base/Vec.h"
 
 const int PathTracingEngine::kMaxDepth = 6;
-
+#include <iostream>
 Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
                                      int depth, float diffuse_accumulation)
 {
@@ -30,7 +30,10 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
   scene.GetIntersect(ray, &inst);
   const Material * m = &(inst.geometry_ptr->material);
   if(inst.IsValid()) {
-
+    //Process emittance
+    if(m->emittance.red != 0) {
+      return m->emittance;
+    }
     //Process diffusion
     if(m->diffusion > 0) {
       int gen_ray_num = GenRayNumber(depth, diffuse_accumulation);
@@ -57,8 +60,7 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
       ret = ret.Add(new_color.Multiply(m->reflection));
     }
 
-    //Process emittance
-    ret = ret.Add(m->emittance);
+
   } else {
     return ret;
   }
@@ -66,7 +68,7 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
 }
 
 int PathTracingEngine::GenRayNumber(int depth, float diffuse_accumulation){
-  return (kMaxDepth - depth) * 5 / (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
+  return (kMaxDepth - depth) * 5; // (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
 }
 /*
  * Generate rays uniformly distributed on an half sphere

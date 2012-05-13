@@ -22,11 +22,11 @@ int main(int argc, char **argv) {
   Scene scene;
   Material source(0.0, 1.0, 0.0, Color::kWhite, Color::kRed);
   Material material(0.0, 1.0, 0.0, Color::kBlack, Color::kGreen);
-//  scene.CreateSphere(Vec(0, 0, 0), 2, material);
-  scene.CreateSphere(Vec(0,0,0), 3, source);
+  scene.CreateSphere(Vec(0, 0, 0), 0.5, source);
+  scene.CreateSphere(Vec(1,1,0), 0.5, material);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
-  int size = 256;
+  int size = 512;
   int i = 0;
   Color *color_arr = new Color [size * size];
   for (int y = 0; y < size; y++) {
