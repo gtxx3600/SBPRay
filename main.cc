@@ -8,10 +8,12 @@
 #include <iostream>
 using namespace std;
 
+#include "base/Ray.h"
 #include "scene/Camera.h"
 #include "scene/Scene.h"
 #include "materials/Material.h"
 #include "pic/PPMFile.h"
+#include "engine/PathTracingEngine.h"
 
 int main(int argc, char **argv) {
   cout << "start" << endl;

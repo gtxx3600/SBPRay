@@ -13,6 +13,7 @@ using namespace std;
 
 class Object;
 class Ray;
+class Vec;
 class Intersect;
 class Material;
 class Scene {
@@ -23,7 +24,7 @@ public:
   void GetIntersect(const Ray &r, Intersect *out_ptr) const;
 
 private:
-  list<Object> object_list;
+  list<Object*> object_list;
 };
 
 #endif /* SCENE_H_ */

@@ -13,9 +13,13 @@ Ray::Ray(Vec p, Vec d) : position(p), direction(d)
   direction = direction.Normalize();
 }
 
+Ray::Ray(const Ray &r)
+    : position(r.position), direction(r.direction) {
 
-Vec Ray::getPoint(float length)
-{
+}
+
+
+Vec Ray::GetPoint(float length) const {
   return position.Add(direction.Normalize().Multiply(length));
 }
 

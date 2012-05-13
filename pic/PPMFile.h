@@ -27,7 +27,7 @@ private:
   const int kHeight;
   const int kSize;
   const int kMaxColorVal;
-  Pixel data[];
+  Pixel *data;
 };
 
 #endif /* PPMFILE_H_ */

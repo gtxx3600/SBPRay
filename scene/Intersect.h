@@ -7,8 +7,10 @@
 
 #ifndef INTERSECT_H_
 #define INTERSECT_H_
-class Vec;
-class Object;
+
+#include "base/Vec.h"
+#include "objects/Object.h"
+
 class Intersect {
 public:
   Intersect();
@@ -16,7 +18,7 @@ public:
   Intersect(const Intersect &intersect);
   bool IsValid() const;
 
-  Object *geometry_ptr;
+  const Object *geometry_ptr;
   Vec position;
   Vec normal;
   float distance;

@@ -21,18 +21,18 @@ Color::Color(float r, float g, float b)
     :red(r), green(g), blue(b) {
 }
 
-Color Color::Multiply(float a) {
+Color Color::Multiply(float a) const {
   return Color(red*a, green*a, blue*a);
 }
 
-Color Color::Modulate(const Color &c){
+Color Color::Modulate(const Color &c) const {
   return Color(red * c.red, green * c.green, blue * c.blue);
 }
 
-Color Color::Add(const Color &c) {
+Color Color::Add(const Color &c) const {
   return Color(red + c.red, green + c.green, blue + c.blue);
 }
 
-Color Color::Sub(const Color &c) {
+Color Color::Sub(const Color &c) const {
   return Color(red - c.red, green - c.green, blue - c.blue);
 }

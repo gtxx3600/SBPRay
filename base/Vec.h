@@ -14,7 +14,7 @@ public:
 
   Vec();
   Vec(float a, float b, float c);
-  Vec(Vec &v);
+  Vec(const Vec &v);
   Vec Normalize() const;
   Vec Negate() const;
   Vec Add(const Vec &v) const;

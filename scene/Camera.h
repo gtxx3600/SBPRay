@@ -8,7 +8,8 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
-class Vec;
+#include "base/Vec.h"
+
 class Ray;
 class Camera {
 public:

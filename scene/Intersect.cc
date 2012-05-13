@@ -26,6 +26,6 @@ Intersect::Intersect(const Intersect &intersect)
       distance(intersect.distance) {
 }
 
-bool Intersect::IsValid() {
+bool Intersect::IsValid() const {
   return geometry_ptr != NULL;
 }
