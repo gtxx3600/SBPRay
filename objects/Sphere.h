@@ -16,6 +16,7 @@ class Sphere: public Object {
 public:
   Sphere();
   Sphere(const Vec &p, float radius);
+  Intersect intersect(const Ray &r);
 
   Vec position;
   float radius;

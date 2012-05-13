@@ -14,3 +14,7 @@ Object::Object() {
 
 }
 
+Object::~Object() {
+
+}
+

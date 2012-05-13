@@ -15,15 +15,15 @@ public:
   Vec();
   Vec(float a, float b, float c);
   Vec(Vec &v);
-  Vec Normalize();
-  Vec Negate();
-  Vec Add(const Vec &v);
-  Vec Sub(const Vec &v);
-  Vec Multiply(float val);
-  Vec XProduct(const Vec &v);
-  float Length();
-  float SqrLength();
-  float DotProduct(const Vec &v);
+  Vec Normalize() const;
+  Vec Negate() const;
+  Vec Add(const Vec &v) const;
+  Vec Sub(const Vec &v) const;
+  Vec Multiply(float val) const;
+  Vec XProduct(const Vec &v) const;
+  float Length() const;
+  float SqrLength() const;
+  float DotProduct(const Vec &v) const;
 
   float x,y,z;
 };
