@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
     for (int x = 0; x < size; x++) {
       float sx = static_cast<float>(x) / size;
       Ray ray = camera.GenerateRay(sx, sy);
-      Color color = PathTracingEngine::PathTracing(scene, ray, 4, 1.0);
+      Color color = PathTracingEngine::PathTracing(scene, ray, 0, 0);
       color_arr[i++] = color;
     }
   }

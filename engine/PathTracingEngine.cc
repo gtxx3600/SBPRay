@@ -28,12 +28,14 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
   }
   Intersect inst = Intersect();
   scene.GetIntersect(ray, &inst);
-  Material * m = &(inst.geometry_ptr->material);
+  const Material * m = &(inst.geometry_ptr->material);
   if(inst.IsValid()) {
-    if(m->diffusion > 0)
-    {
+
+    //Process diffusion
+    if(m->diffusion > 0) {
       int gen_ray_num = GenRayNumber(depth, diffuse_accumulation);
       Color diffuse_color = Color::kBlack;
+      //Randomly generate lot of rays and trace these rays
       for (int i = 0; i < gen_ray_num; ++i) {
         Ray new_ray = GenRandomRay(inst.position, inst.normal);
         Color new_color = PathTracing(scene, new_ray, depth + 1,
@@ -41,8 +43,21 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
         diffuse_color = diffuse_color.Add(new_color.Multiply(
             new_ray.direction.DotProduct(inst.normal)));
       }
-      ret = ret.Add(diffuse_color.Multiply(1.0 / gen_ray_num));
+      //remember taking the average
+      ret = ret.Add(diffuse_color.Multiply(m->diffusion / gen_ray_num));
     }
+
+    //Process reflection, just generate the reflect ray
+    if(m->reflection > 0) {
+      Vec reflect_direction = ray.direction.Add(inst.normal.Multiply(
+          2 * ray.direction.Negate().DotProduct(inst.normal)));
+      Ray new_ray = Ray(inst.position, reflect_direction);
+      Color new_color = PathTracing(scene, new_ray, depth + 1,
+                  diffuse_accumulation + m->diffusion);
+      ret = ret.Add(new_color.Multiply(m->reflection));
+    }
+
+    //Process emittance
     ret = ret.Add(m->emittance);
   } else {
     return ret;
@@ -53,7 +68,9 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
 int PathTracingEngine::GenRayNumber(int depth, float diffuse_accumulation){
   return (kMaxDepth - depth) * 5 / (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
 }
-
+/*
+ * Generate rays uniformly distributed on an half sphere
+ */
 Ray PathTracingEngine::GenRandomRay(const Vec &position, const Vec &normal){
   int a = rand();
   int b = rand();
