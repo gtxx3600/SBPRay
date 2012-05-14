@@ -15,8 +15,7 @@ class Vec;
 class RayTracingEngine {
 public:
   static const int kMaxDepth;
-  static Color RayTracing(const Scene & scene, const Ray & ray,
-                           int depth, double diffuse_accumulation);
+  static Color RayTracing(const Scene & scene, const Ray & ray, int depth);
   RayTracingEngine();
 };
 

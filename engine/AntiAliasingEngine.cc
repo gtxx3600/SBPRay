@@ -27,7 +27,10 @@ AntiAliasingEngine::AntiAliasingEngine(int _width, int _height)
 
 AntiAliasingEngine::~AntiAliasingEngine()
 {
-  delete map;
+  for (int i = 0; i < width; ++i) {
+    delete [] map[i];
+  }
+  delete [] map;
 }
 
 void AntiAliasingEngine::LoadScene(const Scene & scene, const Camera & camera)

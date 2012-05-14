@@ -23,11 +23,13 @@ public:
   Color Modulate(const Color &c) const;
   Color Add(const Color &c) const;
   Color Sub(const Color &c) const;
-
+  void Print() const;
   Color MyAdd(const Color &c) const;
   Color MyDiv(const Color &c) const;
 
   bool IsValid() const;
+  bool IsBlack() const;
+  bool IsTooLarge() const;
 
   double red, green, blue;
 };

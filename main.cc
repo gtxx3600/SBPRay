@@ -21,17 +21,17 @@ int main(int argc, char **argv) {
   double distance = 5.0;
   Camera camera(0.0,0.0,distance, 0.0,1.0,0.0, 0.0,0.0,-1.0, -distance, 45);
   Scene scene;
-  Material source(1.0, 0.0, 0.0, Color::kWhite.Multiply(1), Color::kRed);
-  Material source2(1.0, 0.0, 0.0, Color::kWhite.Multiply(3), Color::kRed);
-  Material diffuse1(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
-  Material diffuse2(1.0, 0.0, 0.0, Color::kBlack, Color::kWhite);
-  Material diffuse3(1.0, 0.0, 0.0, Color::kBlack, Color::kRed);
-  Material reflect(0.0, 1.0, 0.0, Color::kBlack, Color::kWhite);
+  Material source(Color(1,0,0), Color(), Color(), Color::kWhite.Multiply(1));
+  Material source2(Color(1,0,0), Color(), Color(), Color::kWhite.Multiply(3));
+  Material diffuse1(Color(0,1,0), Color(), Color());
+  Material diffuse2(Color::kWhite, Color(), Color());
+  Material diffuse3(Color(1,0,0), Color(), Color());
+  Material reflect(Color::kWhite.Multiply(0.5), Color::kWhite.Multiply(0.5), Color());
   scene.CreateSphere(Vec(0, 100000, 0), 99997, source);
   scene.CreateSphere(Vec(-1,-0.5,0), 0.5, diffuse1);
   scene.CreateSphere(Vec(0,-0.5,0), 0.5, source2);
   scene.CreateSphere(Vec(1,-0.5,0), 0.5, diffuse3);
-  scene.CreateSphere(Vec(0,-10000,0), 9999, diffuse2);
+  scene.CreateSphere(Vec(0,-10000,0), 9999, reflect);
 
   //scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
             spx = sx + l * sp_len;
             Ray ray = camera.GenerateRay(spx, spy);
             for(int j = 0; j < samples; j++) {
-              sp_color = sp_color.Add(PathTracingEngine::PathTracing(scene, ray, 0, 0));
+              sp_color = sp_color.Add(PathTracingEngine::PathTracing(scene, ray, 0));
             }
             sp_color = sp_color.Multiply(1.0 / samples);
             color = color.Add(sp_color);
@@ -73,12 +73,13 @@ int main(int argc, char **argv) {
         Ray ray = camera.GenerateRay(sx, sy);
 
         for(int j = 0; j < samples; j++) {
-          color = color.Add(PathTracingEngine::PathTracing(scene, ray, 0, 0));
+          color = color.Add(PathTracingEngine::PathTracing(scene, ray, 0));
 
         }
         //Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
 
         color_arr[i++] = color.Multiply(1.0/samples);
+
       }
     }
   }
