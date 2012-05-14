@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
   int size = 256;
   int samples = 64;
-  int i = 0;
+  int i = 0, super_count = 0;
   Color *color_arr = new Color [size * size];
   AntiAliasingEngine aae = AntiAliasingEngine(size, size);
   aae.LoadScene(scene, camera);
@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
       double sx = static_cast<double>(x) / size;
       Color color = Color::kBlack;
       if(aae.ShouldSuperSample(x, y)) {
+        ++super_count;
         Color sp_color = Color::kBlack;
         Color aa_color = Color::kBlack;
         double spx,spy;
@@ -79,9 +80,9 @@ int main(int argc, char **argv) {
 
         color_arr[i++] = color.Multiply(1.0/samples);
       }
-
     }
   }
+  cout << "i=" << i << ", super_count=" << super_count << endl;
   PPMFile ppmfile(size, size);
   ppmfile.DataCopy(color_arr, 0, size*size);
   ppmfile.Save("image.ppm");

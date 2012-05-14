@@ -30,7 +30,6 @@ AntiAliasingEngine::~AntiAliasingEngine()
   delete map;
 }
 
-
 void AntiAliasingEngine::LoadScene(const Scene & scene, const Camera & camera)
 {
   for (int y = 0; y < height; y++) {
@@ -45,10 +44,10 @@ void AntiAliasingEngine::LoadScene(const Scene & scene, const Camera & camera)
 
 bool AntiAliasingEngine::ShouldSuperSample(int x, int y) const
 {
-  if((x > 0) && (map[x] != map[x - 1])) return true;
-  if((x < width - 1) && (map[x] != map[x + 1])) return true;
-  if((y > 0) && (map[y] != map[y - 1])) return true;
-  if((y < height - 1) && (map[y] != map[y + 1])) return true;
+  if((x > 0) && (map[x][y] != map[x - 1][y])) return true;
+  if((x < width - 1) && (map[x][y] != map[x + 1][y])) return true;
+  if((y > 0) && (map[x][y] != map[x][y - 1])) return true;
+  if((y < height - 1) && (map[x][y] != map[x][y + 1])) return true;
   return false;
 }
 
