@@ -20,11 +20,11 @@ int main(int argc, char **argv) {
   double distance = 5.0;
   Camera camera(0.0,0.0,distance, 0.0,1.0,0.0, 0.0,0.0,-1.0, -distance, 45);
   Scene scene;
-  Material source(1.0, 0.0, 0.0, Color::kWhite.Multiply(10), Color::kRed);
+  Material source(1.0, 0.0, 0.0, Color::kWhite.Multiply(1), Color::kRed);
   Material diffuse1(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
   Material diffuse2(1.0, 0.0, 0.0, Color::kBlack, Color::kWhite);
   Material reflect(0.0, 1.0, 0.0, Color::kBlack, Color::kWhite);
-  scene.CreateSphere(Vec(0, 1, 0), 0.5, source);
+  scene.CreateSphere(Vec(0, 1000, 0), 997, source);
   scene.CreateSphere(Vec(0,-0.5,0), 0.5, diffuse1);
   scene.CreateSphere(Vec(0,-1000,0), 999, diffuse2);
   //scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
