@@ -15,38 +15,71 @@ using namespace std;
 #include "pic/PPMFile.h"
 #include "engine/PathTracingEngine.h"
 #include "engine/RayTracingEngine.h"
+#include "engine/AntiAliasingEngine.h"
 int main(int argc, char **argv) {
   cout << "start" << endl;
   double distance = 5.0;
   Camera camera(0.0,0.0,distance, 0.0,1.0,0.0, 0.0,0.0,-1.0, -distance, 45);
   Scene scene;
-  Material source(1.0, 0.0, 0.0, Color(10,10,10), Color::kRed);
-  Material material(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
+  Material source(1.0, 0.0, 0.0, Color::kWhite.Multiply(1), Color::kRed);
+  Material source2(1.0, 0.0, 0.0, Color::kWhite.Multiply(3), Color::kRed);
+  Material diffuse1(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
+  Material diffuse2(1.0, 0.0, 0.0, Color::kBlack, Color::kWhite);
+  Material diffuse3(1.0, 0.0, 0.0, Color::kBlack, Color::kRed);
   Material reflect(0.0, 1.0, 0.0, Color::kBlack, Color::kWhite);
-//  scene.CreateSphere(Vec(2, 2, 0), 0.5, source);
-//  scene.CreateSphere(Vec(1,1,0), 0.5, material);
-//  scene.CreateSphere(Vec(0,0,0), 1, reflect);
-  scene.CreateSphere(Vec(0, 0, 0), 0.5, source);
-  scene.CreateSphere(Vec(1,1,0), 0.5, material);
-  scene.CreateSphere(Vec(0,0,-5), 3, material);
-  scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
+  scene.CreateSphere(Vec(0, 100000, 0), 99997, source);
+  scene.CreateSphere(Vec(-1,-0.5,0), 0.5, diffuse1);
+  scene.CreateSphere(Vec(0,-0.5,0), 0.5, source2);
+  scene.CreateSphere(Vec(1,-0.5,0), 0.5, diffuse3);
+  scene.CreateSphere(Vec(0,-10000,0), 9999, diffuse2);
+
+  //scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
   int size = 256;
+  int samples = 64;
   int i = 0;
   Color *color_arr = new Color [size * size];
+  AntiAliasingEngine aae = AntiAliasingEngine(size, size);
+  aae.LoadScene(scene, camera);
+  int super_sample_num = 1;
+  double sp_len = 1.0 / (size * 2 * super_sample_num);
   for (int y = 0; y < size; y++) {
     double sy = 1 - static_cast<double>(y) / size;
+    cout << "y:" << y << endl;
     for (int x = 0; x < size; x++) {
       double sx = static_cast<double>(x) / size;
-      Ray ray = camera.GenerateRay(sx, sy);
-      Color color = PathTracingEngine::PathTracing(scene, ray, 0, 0);
-//      Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
-      if(!color.IsValid())
-      {
-        color = Color::kBlue;
+      Color color = Color::kBlack;
+      if(aae.ShouldSuperSample(x, y)) {
+        Color sp_color = Color::kBlack;
+        Color aa_color = Color::kBlack;
+        double spx,spy;
+        for (int k = -super_sample_num; k < super_sample_num + 1; ++k) {
+          spy = sy + k * sp_len;
+          for (int l = -super_sample_num; l < super_sample_num + 1; ++l) {
+            spx = sx + l * sp_len;
+            Ray ray = camera.GenerateRay(spx, spy);
+            for(int j = 0; j < samples; j++) {
+              sp_color = sp_color.Add(PathTracingEngine::PathTracing(scene, ray, 0, 0));
+            }
+            sp_color = sp_color.Multiply(1.0 / samples);
+            color = color.Add(sp_color);
+          }
+        }
+        color_arr[i++] = color.Multiply(1.0 / ((2 * super_sample_num + 1) * (2 * super_sample_num + 1)));
+
+      } else {
+        Ray ray = camera.GenerateRay(sx, sy);
+
+        for(int j = 0; j < samples; j++) {
+          color = color.Add(PathTracingEngine::PathTracing(scene, ray, 0, 0));
+
+        }
+        //Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
+
+        color_arr[i++] = color.Multiply(1.0/samples);
       }
-      color_arr[i++] = color;
+
     }
   }
   PPMFile ppmfile(size, size);
