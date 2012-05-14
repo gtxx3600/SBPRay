@@ -23,6 +23,7 @@ public:
   Color Modulate(const Color &c) const;
   Color Add(const Color &c) const;
   Color Sub(const Color &c) const;
+  bool IsValid() const;
 
   double red, green, blue;
 };

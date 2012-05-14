@@ -28,8 +28,9 @@ Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int dep
   }
   Intersect inst = Intersect();
   scene.GetIntersect(ray, &inst);
-  const Material * m = &(inst.geometry_ptr->material);
+
   if(inst.IsValid()) {
+    const Material * m = &(inst.geometry_ptr->material);
     //Process emittance
 
     //Process diffusion
@@ -38,11 +39,17 @@ Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int dep
       double n_dot_l = inst.normal.DotProduct(light_dir);
       if(n_dot_l < 0)
       {
-        ret = ret.Add(light.Multiply(-n_dot_l).Modulate(m->color));
-        std::cout<<"hit\n";
+        Color a1 = light.Multiply(-n_dot_l);
+        Color a2 = a1.Modulate(m->color);
+        ret = ret.Add(a2);
+        //ret = ret.Add(light.Multiply(-n_dot_l).Modulate(m->color));
+
       }
     }
-
+    if(!ret.IsValid())
+    {
+      std::cout << "error1\n";
+    }
     //Process reflection, just generate the reflect ray
     if(m->reflection > 0.1) {
       Vec reflect_direction = ray.direction.Add(inst.normal.Multiply(
@@ -53,8 +60,11 @@ Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int dep
                   diffuse_accumulation + m->diffusion);
       ret = ret.Add(new_color.Multiply(m->reflection));
     }
-
-
+    if(!ret.IsValid())
+    {
+      std::cout << "error2\n";
+    }
+    return ret;
   } else {
     Color c = light;
     float d_dot_l = ray.direction.DotProduct(light_dir);
@@ -63,7 +73,6 @@ Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int dep
     }
     return ret;
   }
-  return ret;
 }
 
 RayTracingEngine::RayTracingEngine() {

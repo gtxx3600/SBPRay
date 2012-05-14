@@ -23,9 +23,13 @@ int main(int argc, char **argv) {
   Material source(1.0, 0.0, 0.0, Color::kWhite, Color::kRed);
   Material material(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
   Material reflect(0.0, 1.0, 0.0, Color::kBlack, Color::kWhite);
-  scene.CreateSphere(Vec(2, 2, 0), 0.5, source);
+//  scene.CreateSphere(Vec(2, 2, 0), 0.5, source);
 //  scene.CreateSphere(Vec(1,1,0), 0.5, material);
-  scene.CreateSphere(Vec(0,0,0), 1, reflect);
+//  scene.CreateSphere(Vec(0,0,0), 1, reflect);
+  scene.CreateSphere(Vec(0, 0, 0), 0.5, source);
+  scene.CreateSphere(Vec(1,1,0), 0.5, material);
+  scene.CreateSphere(Vec(0,0,-5), 3, material);
+  scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
   int size = 256;
@@ -38,6 +42,10 @@ int main(int argc, char **argv) {
       Ray ray = camera.GenerateRay(sx, sy);
       Color color = PathTracingEngine::PathTracing(scene, ray, 0, 0);
       //Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
+      if(!color.IsValid())
+      {
+        color = Color::kBlue;
+      }
       color_arr[i++] = color;
     }
   }

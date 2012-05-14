@@ -36,3 +36,9 @@ Color Color::Add(const Color &c) const {
 Color Color::Sub(const Color &c) const {
   return Color(red - c.red, green - c.green, blue - c.blue);
 }
+
+bool Color::IsValid() const{
+  return (red > -0.001) && (blue > -0.001) && (green > -0.001);
+}
+
+

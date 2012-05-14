@@ -8,6 +8,7 @@
 #include "pic/PPMFile.h"
 
 #include <fstream>
+#include <iostream>
 using namespace std;
 #include "base/Color.h"
 
@@ -30,6 +31,10 @@ void PPMFile::DataCopy(const Color color_arr[], int start, int len) {
     dst->red = color_f2i(src->red);
     dst->green = color_f2i(src->green);
     dst->blue = color_f2i(src->blue);
+    if(dst->red < 0 || dst->green < 0 || dst->blue < 0)
+    {
+      cout<<"error3\n";
+    }
   }
 }
 
@@ -43,6 +48,10 @@ void PPMFile::Save(const char *filename) {
       if (i) fout << ' ';
       Pixel *p = &(data[j*kWidth + i]);
       fout << p->red << ' ' << p->green << ' ' << p->blue;
+      if(p->red < 0 || p->green < 0 || p->blue < 0)
+      {
+        cout<<"error4\n";
+      }
     }
     fout << endl;
   }

@@ -10,7 +10,7 @@ MAIN = sbpray
 
 .PHONY: depend clean
 
-all:    $(MAIN)
+all:  clean  $(MAIN)
 
 $(MAIN): $(OBJS) 
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
