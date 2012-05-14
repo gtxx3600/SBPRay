@@ -71,4 +71,9 @@ bool Color::IsBlack() const {
   return red < th && blue < th && green < th;
 }
 
+bool Color::IsTooLarge() const {
+  const float th = 1;
+  return red > th || blue > th || green > th;
+}
+
 

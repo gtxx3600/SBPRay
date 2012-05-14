@@ -29,6 +29,7 @@ public:
 
   bool IsValid() const;
   bool IsBlack() const;
+  bool IsTooLarge() const;
 
   double red, green, blue;
 };
