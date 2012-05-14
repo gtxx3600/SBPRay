@@ -18,15 +18,9 @@
 #include "base/Vec.h"
 const int RayTracingEngine::kMaxDepth = 6;
 #include <iostream>
-<<<<<<< HEAD
 Vec light_dir = Vec(-1,-1,-1).Normalize();
 Color light = Color(1,1,1);
-Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int depth, float diffuse_accumulation)
-=======
-Vec light_dir = Vec(1,1,-1).Normalize();
-Color light = Color(0.5,0.5,0.5);
 Color RayTracingEngine::RayTracing(const Scene & scene, const Ray & ray, int depth, double diffuse_accumulation)
->>>>>>> 8d06c6954db4b2eb93481cacf6f722538b1c3e37
 {
   Color ret = Color::kBlack;
   if(depth > kMaxDepth) {
