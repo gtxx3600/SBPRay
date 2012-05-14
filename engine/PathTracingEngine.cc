@@ -45,7 +45,7 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
       Ray new_ray = GenRandomRay(inst.position.Add(inst.normal.Multiply(0.00001)), inst.normal);
       Color new_color = PathTracing(scene, new_ray, depth + 1);
       float cosa = new_ray.direction.DotProduct(inst.normal);
-      if (depth < 1) {
+      if (depth < kMaxDepth) { // Fixme
         diffuse_color = new_color.Modulate(m->diffusion).Multiply(cosa);
       } else {
         diffuse_color = new_color.Modulate(m->diffusion);

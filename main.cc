@@ -26,12 +26,13 @@ int main(int argc, char **argv) {
   Material diffuse1(Color(0,1,0), Color(), Color());
   Material diffuse2(Color::kWhite, Color(), Color());
   Material diffuse3(Color(1,0,0), Color(), Color());
-  Material reflect(Color::kWhite.Multiply(0.5), Color::kWhite.Multiply(0.5), Color());
+  Material reflect(Color::kWhite.Multiply(0.9), Color::kWhite.Multiply(0.1), Color());
   scene.CreateSphere(Vec(0, 100000, 0), 99997, source);
   scene.CreateSphere(Vec(-1,-0.5,0), 0.5, diffuse1);
   scene.CreateSphere(Vec(0,-0.5,0), 0.5, source2);
   scene.CreateSphere(Vec(1,-0.5,0), 0.5, diffuse3);
-  scene.CreateSphere(Vec(0,-10000,0), 9999, reflect);
+//  scene.CreateSphere(Vec(0,-10000,0), 9999, reflect);
+  scene.CreatePlane(0, 1, 0, -1, reflect);
 
   //scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
@@ -42,7 +43,7 @@ int main(int argc, char **argv) {
   Color *color_arr = new Color [size * size];
   AntiAliasingEngine aae = AntiAliasingEngine(size, size);
   aae.LoadScene(scene, camera);
-  int super_sample_num = 1;
+  int super_sample_num = 2;
   double sp_len = 1.0 / (size * 2 * super_sample_num);
   for (int y = 0; y < size; y++) {
     double sy = 1 - static_cast<double>(y) / size;

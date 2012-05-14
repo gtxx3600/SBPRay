@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include "base/Color.h"
 #include "objects/Sphere.h"
+#include "objects/Plane.h"
 #include "scene/Intersect.h"
 
 Scene::Scene() {
@@ -25,6 +26,11 @@ Scene::~Scene() {
 
 void Scene::CreateSphere(const Vec &p, double r, Material m) {
   Object *o_ptr = new Sphere(p, r, m);
+  object_list.push_back(o_ptr);
+}
+
+void Scene::CreatePlane(float a, float b, float c, float d, Material m) {
+  Object *o_ptr = new Plane(a, b, c, d, m);
   object_list.push_back(o_ptr);
 }
 
