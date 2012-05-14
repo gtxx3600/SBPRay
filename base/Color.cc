@@ -37,6 +37,24 @@ Color Color::Sub(const Color &c) const {
   return Color(red - c.red, green - c.green, blue - c.blue);
 }
 
+Color Color::MyAdd(const Color &c) const {
+  return Color(red*red + c.red*c.red, green*green + c.green*c.green, blue*blue+c.blue*c.blue);
+}
+
+Color Color::MyDiv(const Color &c) const {
+  float r = 0, g = 0, b = 0;
+  if (c.red >= red) {
+    r = red/c.red;
+  }
+  if (c.green >= green) {
+    g = green/c.green;
+  }
+  if (c.blue >= blue) {
+    b = blue/c.blue;
+  }
+  return Color(r, g, b);
+}
+
 bool Color::IsValid() const{
   return (red > -0.001) && (blue > -0.001) && (green > -0.001);
 }

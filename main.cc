@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   double distance = 5.0;
   Camera camera(0.0,0.0,distance, 0.0,1.0,0.0, 0.0,0.0,-1.0, -distance, 45);
   Scene scene;
-  Material source(1.0, 0.0, 0.0, Color::kWhite, Color::kRed);
+  Material source(1.0, 0.0, 0.0, Color(10,10,10), Color::kRed);
   Material material(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
   Material reflect(0.0, 1.0, 0.0, Color::kBlack, Color::kWhite);
 //  scene.CreateSphere(Vec(2, 2, 0), 0.5, source);
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
       double sx = static_cast<double>(x) / size;
       Ray ray = camera.GenerateRay(sx, sy);
       Color color = PathTracingEngine::PathTracing(scene, ray, 0, 0);
-      //Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
+//      Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
       if(!color.IsValid())
       {
         color = Color::kBlue;
