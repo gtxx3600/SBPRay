@@ -20,7 +20,7 @@
 const int PathTracingEngine::kMaxDepth = 2;
 #include <iostream>
 Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
-                                     int depth, double diffuse_accumulation)
+                                     int depth)
 {
   Color ret = Color::kBlack;
   if(depth > kMaxDepth) {
@@ -31,71 +31,32 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
   const Material * m = &(inst.geometry_ptr->material);
   if(inst.IsValid()) {
     //Process emittance
-    if(m->emittance.red != 0) {
-      return m->emittance;
+    if(m->IsLightSource()) {
+      return m->get_emittance();
     }
+    Color diffuse_color = Color::kBlack;
+    Color reflect_color = Color::kBlack;
     //Process diffusion
-    if(m->diffusion > 0) {
-      int gen_ray_num = GenRayNumber(depth, diffuse_accumulation);
-      Color diffuse_color = Color::kBlack;
-      Color sum_color = Color::kBlack;
-      //Randomly generate lot of rays and trace these rays
-      for (int i = 0; i < gen_ray_num; ++i) {
-        if (!diffuse_color.IsValid()) {
-          cout << "begin("<<i<<"): diffuse_color:" << diffuse_color.red << ' ' <<
-              diffuse_color.green << ' ' <<
-              diffuse_color.blue << endl;
-        }
-        Ray new_ray = GenRandomRay(inst.position.Add(inst.normal.Multiply(0.00001)), inst.normal);
-        Color new_color = PathTracing(scene, new_ray, depth + 1,
-            diffuse_accumulation + m->diffusion);
-        float cosa = new_ray.direction.DotProduct(inst.normal);
-        diffuse_color = diffuse_color.Add(new_color.Multiply(cosa));
-//        sum_color = sum_color.Add(new_color);
-        if ((new_color.IsValid() && !diffuse_color.IsValid())) {
-          cout << "new_color:" << new_color.red << ' ' << new_color.green << ' ' << new_color.blue << endl;
-          cout << "sum_color:" << sum_color.red << ' ' << sum_color.green << ' ' << sum_color.blue << endl;
-          cout << "diffuse_color:" << diffuse_color.red << ' ' <<
-              diffuse_color.green << ' ' <<
-              diffuse_color.blue << endl;
-          if (i!=25)
-          exit(1);
-        }
-      }
-      //remember taking the average
-      ret = ret.Add(diffuse_color.Multiply(m->diffusion / gen_ray_num));
-//      diffuse_color = diffuse_color.Add(ret);
-//      sum_color = diffuse_color.Add(ret);
-//      ret = diffuse_color.MyDiv(sum_color);
-    }
-    if(!ret.IsValid())
-    {
-      std::cout << "error1\n";
+    if(!m->diffusion.IsBlack()) {
+      Ray new_ray = GenRandomRay(inst.position.Add(inst.normal.Multiply(0.00001)), inst.normal);
+      Color new_color = PathTracing(scene, new_ray, depth + 1);
+      float cosa = new_ray.direction.DotProduct(inst.normal);
+      diffuse_color = new_color.Modulate(m->diffusion).Multiply(cosa);
     }
     //Process reflection, just generate the reflect ray
-    if(m->reflection > 0) {
-//    if(false) {
+    if(!m->reflection.IsBlack()) {
       Vec reflect_direction = ray.direction.Add(inst.normal.Multiply(
           2 * ray.direction.Negate().DotProduct(inst.normal)));
       Ray new_ray = Ray(inst.position.Add(inst.normal.Multiply(0.00001)), reflect_direction);
-      Color new_color = PathTracing(scene, new_ray, depth + 1,
-                  diffuse_accumulation + m->diffusion);
-      ret = ret.Add(new_color.Multiply(m->reflection));
+      Color new_color = PathTracing(scene, new_ray, depth + 1);
+      float cosa = new_ray.direction.DotProduct(inst.normal);
+      reflect_color = new_color.Modulate(m->reflection).Multiply(cosa);
     }
-    if(!ret.IsValid())
-    {
-      std::cout << "error2\n";
-    }
-
-  } else {
-    return ret;
+    ret = diffuse_color.Add(reflect_color);
   }
   return ret;
 }
 
-int PathTracingEngine::GenRayNumber(int depth, double diffuse_accumulation){
-  return (kMaxDepth - depth + 1) * 50; // (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
-}
 /*
  * Generate rays uniformly distributed on an half sphere
  */

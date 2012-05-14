@@ -7,11 +7,18 @@
 
 #include "base/Color.h"
 
+#include <iostream>
+using namespace std;
+
 const Color Color::kRed = Color(1.0, 0.0, 0.0);
 const Color Color::kGreen = Color(0.0, 1.0, 0.0);
 const Color Color::kBlue = Color(0.0, 0.0, 1.0);
 const Color Color::kWhite = Color(1.0, 1.0, 1.0);
 const Color Color::kBlack = Color(0.0, 0.0, 0.0);
+
+void Color::Print() const {
+  cout << "{red:" << red << ",green:" << green << ",blue:" << blue << "}" << endl;
+}
 
 Color::Color()
     :red(0.0), green(0.0), blue(0.0) {
@@ -57,6 +64,11 @@ Color Color::MyDiv(const Color &c) const {
 
 bool Color::IsValid() const{
   return (red > -0.001) && (blue > -0.001) && (green > -0.001);
+}
+
+bool Color::IsBlack() const {
+  const float th = 0.00001;
+  return red < th && blue < th && green < th;
 }
 
 

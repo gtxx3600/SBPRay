@@ -14,16 +14,18 @@ class Material {
 public:
   Material();
   Material(Material & m);
-  Material(double _diffusion, double _reflection, double _refraction,
-           Color _emittance, Color _color);
+  Material(Color _diffusion, Color _reflection,
+      Color _refraction);
+  Material(Color _diffusion, Color _reflection,
+      Color _refraction, Color _emittance);
   virtual ~Material();
+  virtual bool IsLightSource() const;
+  virtual Color get_emittance() const;
 
-  double diffusion;
-  double reflection;
-  double refraction;
+  Color diffusion;
+  Color reflection;
+  Color refraction;
   Color emittance;
-  Color color;
-
 };
 
 #endif /* MATERIAL_H_ */

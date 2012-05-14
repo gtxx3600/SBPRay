@@ -20,13 +20,13 @@ int main(int argc, char **argv) {
   double distance = 5.0;
   Camera camera(0.0,0.0,distance, 0.0,1.0,0.0, 0.0,0.0,-1.0, -distance, 45);
   Scene scene;
-  Material source(1.0, 0.0, 0.0, Color(10,10,10), Color::kRed);
-  Material material(1.0, 0.0, 0.0, Color::kBlack, Color::kGreen);
-  Material reflect(0.0, 1.0, 0.0, Color::kBlack, Color::kWhite);
+  Material source(Color(), Color(), Color(), Color::kWhite);
+  Material material(Color(0,1,0), Color(), Color());
+  Material reflect(Color(), Color(1,1,1), Color());
 //  scene.CreateSphere(Vec(2, 2, 0), 0.5, source);
 //  scene.CreateSphere(Vec(1,1,0), 0.5, material);
 //  scene.CreateSphere(Vec(0,0,0), 1, reflect);
-  scene.CreateSphere(Vec(0, 0, 0), 0.5, source);
+  scene.CreateSphere(Vec(0, 1000, 0), 1000, source);
   scene.CreateSphere(Vec(1,1,0), 0.5, material);
   scene.CreateSphere(Vec(0,0,-5), 3, material);
   scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
@@ -34,14 +34,20 @@ int main(int argc, char **argv) {
 //  scene.CreateSphere(Vec(-2, -2, 0), 3, material);
   int size = 256;
   int i = 0;
+  int sample_num = 64;
   Color *color_arr = new Color [size * size];
   for (int y = 0; y < size; y++) {
     double sy = 1 - static_cast<double>(y) / size;
     for (int x = 0; x < size; x++) {
       double sx = static_cast<double>(x) / size;
       Ray ray = camera.GenerateRay(sx, sy);
-      Color color = PathTracingEngine::PathTracing(scene, ray, 0, 0);
-//      Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
+      Color color = Color::kBlack;
+      for (int k = 0; k < sample_num; ++k) {
+        Color new_color = PathTracingEngine::PathTracing(scene, ray, 0);
+        color = color.Add(new_color);
+      }
+      color.Multiply(1./sample_num);
+//      Color color = RayTracingEngine::RayTracing(scene, ray, 0);
       if(!color.IsValid())
       {
         color = Color::kBlue;
