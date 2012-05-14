@@ -22,7 +22,7 @@ public:
 
 private:
   static const char *kMagicNumber;
-  int color_f2i(double f) {return static_cast<int>(f*kMaxColorVal);}
+  int color_f2i(double f) {if(f < 0){return 0;}return static_cast<int>(f*kMaxColorVal);}
   const int kWidth;
   const int kHeight;
   const int kSize;

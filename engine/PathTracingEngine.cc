@@ -17,7 +17,7 @@
 #include "base/Ray.h"
 #include "base/Vec.h"
 
-const int PathTracingEngine::kMaxDepth = 6;
+const int PathTracingEngine::kMaxDepth = 2;
 #include <iostream>
 Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
                                      int depth, double diffuse_accumulation)
@@ -49,7 +49,10 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
       //remember taking the average
       ret = ret.Add(diffuse_color.Multiply(m->diffusion / gen_ray_num));
     }
-
+    if(!ret.IsValid())
+    {
+      //std::cout << "error1\n";
+    }
     //Process reflection, just generate the reflect ray
     if(m->reflection > 0) {
       Vec reflect_direction = ray.direction.Add(inst.normal.Multiply(
@@ -59,7 +62,10 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
                   diffuse_accumulation + m->diffusion);
       ret = ret.Add(new_color.Multiply(m->reflection));
     }
-
+    if(!ret.IsValid())
+    {
+      //std::cout << "error2\n";
+    }
 
   } else {
     return ret;
@@ -68,13 +74,13 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
 }
 
 int PathTracingEngine::GenRayNumber(int depth, double diffuse_accumulation){
-  return (kMaxDepth - depth) * 2; // (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
+  return (kMaxDepth - depth) * 10; // (diffuse_accumulation > 0.5 ? diffuse_accumulation : 0.5);
 }
 /*
  * Generate rays uniformly distributed on an half sphere
  */
 Ray PathTracingEngine::GenRandomRay(const Vec &position, const Vec &normal){
-  return Ray(position, Vec(-1,-1,0).Normalize());
+  //return Ray(position, Vec(-1,-1,0).Normalize());
   int a = rand();
   int b = rand();
   double theta = M_PI * (static_cast<double>(2 * a) / static_cast<double>(RAND_MAX));
