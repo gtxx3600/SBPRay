@@ -30,7 +30,7 @@ Camera::Camera(double px, double py, double pz,
   fov_scale = tan(v * 0.5 * M_PI / 180) * 2;
 }
 
-Ray Camera::GenerateRay(double x, double y)
+Ray Camera::GenerateRay(double x, double y) const
 {
   Vec r = rightward.Multiply((x - 0.5) * fov_scale);
   Vec u = upward.Multiply((y - 0.5) * fov_scale);

@@ -17,7 +17,7 @@ public:
   Camera(double px, double py, double pz,
       double ux, double uy, double uz,
       double fx, double fy, double fz, double d, double v);
-  Ray GenerateRay(double x, double y);
+  Ray GenerateRay(double x, double y) const;
 
   Vec position;
   Vec upward;
