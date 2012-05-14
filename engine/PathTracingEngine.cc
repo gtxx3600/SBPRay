@@ -17,8 +17,12 @@
 #include "base/Ray.h"
 #include "base/Vec.h"
 
-const int PathTracingEngine::kMaxDepth = 3;
+const int PathTracingEngine::kMaxDepth = 5;
 #include <iostream>
+
+Vec light2 = Vec(0,-0.3,-1).Normalize();
+Color light_color2 = Color(0.5,0.5,0.5);
+
 Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
                                      int depth, double diffuse_accumulation)
 {
@@ -42,19 +46,20 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
       Ray new_ray = GenRandomRay(inst.position.Add(inst.normal.Multiply(0.00001)), inst.normal);
       Color new_color = PathTracing(scene, new_ray, depth + 1,
           diffuse_accumulation + m->diffusion);
-      if((new_color.red > 0) && (new_color.green > 0) && (new_color.blue > 0))
-      {
-        //cout<<"hit\n";
-      }
-      if(!new_color.IsValid())
-      {
-        cout<<"error!\n";
-      }
-      diffuse_color = diffuse_color.Add(new_color.Multiply(
-          new_ray.direction.DotProduct(inst.normal)));
 
+      float cosine = new_ray.direction.DotProduct(inst.normal);
+      if(depth < 1) {
+        diffuse_color = diffuse_color.Add(new_color.Multiply(cosine));
+      } else {
+        diffuse_color = diffuse_color.Add(new_color);
+      }
       //remember taking the average
       ret = ret.Add(diffuse_color.Multiply(m->diffusion).Modulate(m->color));
+
+      /*float n_dot_l = inst.normal.DotProduct(light2);
+      if(n_dot_l < 0) {
+        ret = ret.Add(light_color2.Modulate(m->color).Multiply(-n_dot_l));
+      }*/
     }
 
     //Process reflection, just generate the reflect ray
