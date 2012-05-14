@@ -36,26 +36,25 @@ Color PathTracingEngine::PathTracing(const Scene & scene, const Ray & ray,
     }
     //Process diffusion
     if(m->diffusion > 0) {
-      int gen_ray_num = GenRayNumber(depth, diffuse_accumulation);
       Color diffuse_color = Color::kBlack;
       //Randomly generate lot of rays and trace these rays
-      for (int i = 0; i < gen_ray_num; ++i) {
-        Ray new_ray = GenRandomRay(inst.position.Add(inst.normal.Multiply(0.00001)), inst.normal);
-        Color new_color = PathTracing(scene, new_ray, depth + 1,
-            diffuse_accumulation + m->diffusion);
-        if((new_color.red > 0) && (new_color.green > 0) && (new_color.blue > 0))
-        {
-          //cout<<"hit\n";
-        }
-        if(!new_color.IsValid())
-        {
-          cout<<"error!\n";
-        }
-        diffuse_color = diffuse_color.Add(new_color.Multiply(
-            new_ray.direction.DotProduct(inst.normal)));
+
+      Ray new_ray = GenRandomRay(inst.position.Add(inst.normal.Multiply(0.00001)), inst.normal);
+      Color new_color = PathTracing(scene, new_ray, depth + 1,
+          diffuse_accumulation + m->diffusion);
+      if((new_color.red > 0) && (new_color.green > 0) && (new_color.blue > 0))
+      {
+        //cout<<"hit\n";
       }
+      if(!new_color.IsValid())
+      {
+        cout<<"error!\n";
+      }
+      diffuse_color = diffuse_color.Add(new_color.Multiply(
+          new_ray.direction.DotProduct(inst.normal)));
+
       //remember taking the average
-      ret = ret.Add(diffuse_color.Multiply(m->diffusion / gen_ray_num).Modulate(m->color));
+      ret = ret.Add(diffuse_color.Multiply(m->diffusion).Modulate(m->color));
     }
 
     //Process reflection, just generate the reflect ray
