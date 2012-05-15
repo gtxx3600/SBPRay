@@ -6,6 +6,8 @@
  */
 #include <math.h>
 #include "base/Vec.h"
+#include <iostream>
+using namespace std;
 
 const Vec Vec::kZero = Vec(0.0, 0.0, 0.0);
 
@@ -85,7 +87,9 @@ double Vec::DotProduct(const Vec & v) const
   return x*v.x + y*v.y + z*v.z;
 }
 
-
+void Vec::Print() const {
+  cout << "(" << x << "," << y << "," << z << ")" << endl;
+}
 
 
 

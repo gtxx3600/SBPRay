@@ -27,14 +27,13 @@ int main(int argc, char **argv) {
   Material diffuse_white(Color::kWhite, Color(), Color());
   Material diffuse_red(Color(1,0,0), Color(), Color());
   Material diffuse_blue(Color(0,0,1), Color(), Color());
-  Material reflect(Color::kWhite.Multiply(0.1), Color::kWhite.Multiply(0.9), Color());
+  Material reflect(Color::kWhite.Multiply(0.9), Color::kWhite.Multiply(0.1), Color());
   scene.CreatePlane(0, 1, 0, 2, source);
-//  scene.CreateSphere(Vec(-1,-0.5,0), 0.5, diffuse_green);
-//  scene.CreateSphere(Vec(0,-0.5,0), 0.5, source2);
-//  scene.CreateSphere(Vec(1,-0.5,0), 0.5, diffuse_red);
-  scene.CreateTriangle(Vec(0, 1, 0), Vec(-1, -1, 0), Vec(1, -1, 0), diffuse_red);
+  scene.CreateSphere(Vec(-1,-0.5,0), 0.5, diffuse_green);
+  scene.CreateSphere(Vec(0,-0.5,0), 0.5, source2);
+  scene.CreateSphere(Vec(1,-0.5,0), 0.5, diffuse_red);
   scene.CreatePlane(0, 1, 0, -1, diffuse_white);
-//  scene.CreateTriangle(Vec(0.5, 0, 1), Vec(1.5, -1, -1), Vec(1.5, 1, -1), diffuse_blue);
+  scene.CreateTriangle(Vec(0, 0, 0), Vec(-1, 1, -1), Vec(1, 1, -1), diffuse_blue);
 
   //scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);

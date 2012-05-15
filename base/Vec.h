@@ -24,6 +24,7 @@ public:
   double Length() const;
   double SqrLength() const;
   double DotProduct(const Vec &v) const;
+  void Print() const;
 
   double x,y,z;
 };
