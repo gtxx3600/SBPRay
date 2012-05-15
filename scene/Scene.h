@@ -22,6 +22,7 @@ public:
   ~Scene();
   void CreateSphere(const Vec &p, double r, Material m);
   void CreatePlane(float a, float b, float c, float d, Material m);
+  void CreateTriangle(const Vec &p1, const Vec &p2, const Vec &p3, Material m);
   void GetIntersect(const Ray &r, Intersect *out_ptr) const;
 
 private:

@@ -23,16 +23,18 @@ int main(int argc, char **argv) {
   Scene scene;
   Material source(Color(1,0,0), Color(), Color(), Color::kWhite.Multiply(1));
   Material source2(Color(1,0,0), Color(), Color(), Color::kWhite.Multiply(3));
-  Material diffuse1(Color(0,1,0), Color(), Color());
-  Material diffuse2(Color::kWhite, Color(), Color());
-  Material diffuse3(Color(1,0,0), Color(), Color());
-  Material reflect(Color::kWhite.Multiply(0.9), Color::kWhite.Multiply(0.1), Color());
-  scene.CreateSphere(Vec(0, 100000, 0), 99997, source);
-  scene.CreateSphere(Vec(-1,-0.5,0), 0.5, diffuse1);
-  scene.CreateSphere(Vec(0,-0.5,0), 0.5, source2);
-  scene.CreateSphere(Vec(1,-0.5,0), 0.5, diffuse3);
-//  scene.CreateSphere(Vec(0,-10000,0), 9999, reflect);
-  scene.CreatePlane(0, 1, 0, -1, reflect);
+  Material diffuse_green(Color(0,1,0), Color(), Color());
+  Material diffuse_white(Color::kWhite, Color(), Color());
+  Material diffuse_red(Color(1,0,0), Color(), Color());
+  Material diffuse_blue(Color(0,0,1), Color(), Color());
+  Material reflect(Color::kWhite.Multiply(0.1), Color::kWhite.Multiply(0.9), Color());
+  scene.CreatePlane(0, 1, 0, 2, source);
+//  scene.CreateSphere(Vec(-1,-0.5,0), 0.5, diffuse_green);
+//  scene.CreateSphere(Vec(0,-0.5,0), 0.5, source2);
+//  scene.CreateSphere(Vec(1,-0.5,0), 0.5, diffuse_red);
+  scene.CreateTriangle(Vec(0, 1, 0), Vec(-1, -1, 0), Vec(1, -1, 0), diffuse_red);
+  scene.CreatePlane(0, 1, 0, -1, diffuse_white);
+//  scene.CreateTriangle(Vec(0.5, 0, 1), Vec(1.5, -1, -1), Vec(1.5, 1, -1), diffuse_blue);
 
   //scene.CreateSphere(Vec(-1,-1,0), 0.5, reflect);
 //  scene.CreateSphere(Vec(2, 2, 2), 2, material);
@@ -75,9 +77,8 @@ int main(int argc, char **argv) {
 
         for(int j = 0; j < samples; j++) {
           color = color.Add(PathTracingEngine::PathTracing(scene, ray, 0));
-
         }
-        //Color color = RayTracingEngine::RayTracing(scene, ray, 0, 0);
+//        Color color = RayTracingEngine::RayTracing(scene, ray, 0);
 
         color_arr[i++] = color.Multiply(1.0/samples);
 

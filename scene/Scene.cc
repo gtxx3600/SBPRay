@@ -11,6 +11,7 @@
 #include "base/Color.h"
 #include "objects/Sphere.h"
 #include "objects/Plane.h"
+#include "objects/Triangle.h"
 #include "scene/Intersect.h"
 
 Scene::Scene() {
@@ -31,6 +32,12 @@ void Scene::CreateSphere(const Vec &p, double r, Material m) {
 
 void Scene::CreatePlane(float a, float b, float c, float d, Material m) {
   Object *o_ptr = new Plane(a, b, c, d, m);
+  object_list.push_back(o_ptr);
+}
+
+void Scene::CreateTriangle(const Vec &p1, const Vec &p2, const Vec &p3,
+    Material m) {
+  Object *o_ptr = new Triangle(p1, p2, p3, m);
   object_list.push_back(o_ptr);
 }
 

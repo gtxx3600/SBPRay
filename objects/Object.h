@@ -9,6 +9,7 @@
 #define OBJECT_H_
 
 #include "materials/Material.h"
+#include <cstdlib>
 
 class Ray;
 class Intersect;

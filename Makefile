@@ -3,7 +3,7 @@ CFLAGS  = -g -Wall
 INCLUDES = -I./
 LIBS = -lm
 
-SRCS = main.cc base/Color.cc base/Ray.cc base/Vec.cc engine/AntiAliasingEngine.cc engine/PathTracingEngine.cc engine/RayTracingEngine.cc materials/Material.cc objects/Object.cc objects/Plane.cc objects/Sphere.cc pic/PPMFile.cc scene/Camera.cc scene/Intersect.cc scene/Scene.cc
+SRCS = main.cc base/Color.cc base/Ray.cc base/Vec.cc engine/AntiAliasingEngine.cc engine/PathTracingEngine.cc engine/RayTracingEngine.cc materials/Material.cc objects/Object.cc objects/Plane.cc objects/Sphere.cc objects/Triangle.cc pic/PPMFile.cc scene/Camera.cc scene/Intersect.cc scene/Scene.cc
 OBJS = $(SRCS:.cc=.o)
 
 MAIN = sbpray
