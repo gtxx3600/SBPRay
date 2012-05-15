@@ -68,7 +68,8 @@ bool Color::IsValid() const{
 
 bool Color::IsBlack() const {
   const float th = 0.00001;
-  return red < th && blue < th && green < th;
+  return red < th && blue < th && green < th &&
+         red > -th && blue > -th && green > -th;
 }
 
 bool Color::IsTooLarge() const {
